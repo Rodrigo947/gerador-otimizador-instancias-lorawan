@@ -1,0 +1,14 @@
+{
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true,
+		"source.organizeImports": true
+	},
+	"editor.tabSize": 2,
+	"editor.detectIndentation": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"volar.inlayHints.eventArgumentInInlineHandlers": false,
+	"[vue]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
+}

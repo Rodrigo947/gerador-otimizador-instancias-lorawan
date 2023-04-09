@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "dracula-theme.theme-dracula",
+    "pkief.material-icon-theme",
+    "vue.volar",
+    "esbenp.prettier-vscode"
+  ]
+}
