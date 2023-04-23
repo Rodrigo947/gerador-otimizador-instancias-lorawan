@@ -1,5 +1,16 @@
 import { createVuetify } from 'vuetify'
-import { VApp, VAppBar, VAppBarTitle, VBtn, VContainer, VList, VMain, VNavigationDrawer } from 'vuetify/components'
+import {
+	VApp,
+	VAppBar,
+	VAppBarTitle,
+	VBtn,
+	VContainer,
+	VIcon,
+	VList,
+	VMain,
+	VNavigationDrawer,
+	VTextField,
+} from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -14,6 +25,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 			VList,
 			VContainer,
 			VBtn,
+			VTextField,
+			VIcon,
 		},
 		directives,
 	})

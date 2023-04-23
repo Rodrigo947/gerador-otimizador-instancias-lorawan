@@ -1,13 +1,14 @@
 <template>
 	<div id="map">
-		<v-btn icon="mdi-vector-square-edit" class="btnFloating btnRegions" @click="drawer = !drawer"></v-btn>
-		<v-btn icon="mdi-cog" class="btnFloating btnConfig" @click="drawer = !drawer"></v-btn>
+		<v-btn icon="mdi-vector-square-edit" class="btnFloating btnRegions" @click="dc.changeDrawer('regions')"></v-btn>
+		<v-btn icon="mdi-cog" class="btnFloating btnConfig" @click="dc.changeDrawer('config')"></v-btn>
 	</div>
 </template>
 
 <script setup>
 import { useMapStore } from '../stores/mapStore'
-const drawer = useState('drawer')
+import { useDrawerControls } from '../stores/drawerControls.ts'
+const dc = useDrawerControls()
 </script>
 
 <script>
@@ -87,7 +88,7 @@ export default {
 				type: 'fill',
 				source: e.features[0].id,
 				paint: {
-					'fill-color': chosenColor, // blue color fill
+					'fill-color': chosenColor,
 					'fill-opacity': 0.6,
 				},
 			})
@@ -110,8 +111,25 @@ export default {
 		},
 
 		updateArea(e) {
-			this.deleteArea(e)
-			this.createArea(e)
+			this.map.removeLayer(`${e.features[0].id}_fill`)
+			this.map.removeSource(e.features[0].id)
+
+			this.map.addSource(e.features[0].id, {
+				type: 'geojson',
+				data: e.features[0],
+			})
+
+			this.map.addLayer({
+				id: `${e.features[0].id}_fill`,
+				type: 'fill',
+				source: e.features[0].id,
+				paint: {
+					'fill-color': this.mapStore.areas[e.features[0].id].color,
+					'fill-opacity': 0.6,
+				},
+			})
+
+			this.mapStore.areas[e.features[0].id].coordinates = e.features[0].geometry.coordinates
 		},
 	},
 }
