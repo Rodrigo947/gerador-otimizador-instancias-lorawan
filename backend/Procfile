@@ -1,1 +1,1 @@
-web: gunicorn 'api-goil.wsgi'
+web: gunicorn 'core.wsgi'
