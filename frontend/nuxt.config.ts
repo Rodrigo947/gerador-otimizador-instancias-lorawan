@@ -10,6 +10,8 @@ export default defineNuxtConfig({
 		},
 	},
 
+	modules: ['@pinia/nuxt'],
+
 	runtimeConfig: {
 		public: {
 			MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,

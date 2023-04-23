@@ -1,4 +1,4 @@
 <template>
-  <MapBox />
+	<MapBox />
+	<MenuDataNavigationDrawer />
 </template>
-
