@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useDrawerControls = defineStore('drawerControls', {
 	state: () => ({
-		drawer: false,
-		lastBtnClicked: '',
+		drawer: true,
+		lastBtnClicked: 'areas',
 	}),
 	actions: {
 		changeDrawer(btnClicked: string) {

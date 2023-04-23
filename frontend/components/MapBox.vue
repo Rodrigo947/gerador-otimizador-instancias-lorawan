@@ -1,7 +1,7 @@
 <template>
 	<div id="map">
-		<v-btn icon="mdi-vector-square-edit" class="btnFloating btnRegions" @click="dc.changeDrawer('regions')"></v-btn>
 		<v-btn icon="mdi-cog" class="btnFloating btnConfig" @click="dc.changeDrawer('config')"></v-btn>
+		<v-btn icon="mdi-vector-square-edit" class="btnFloating btnAreas" @click="dc.changeDrawer('areas')"></v-btn>
 	</div>
 </template>
 
@@ -77,7 +77,7 @@ export default {
 
 			let index = 0
 			let chosenColor = this.availableColors[index]
-			while (this.usedColors.includes(chosenColor)) {
+			while (this.usedColors.includes(chosenColor) && this.usedColors.length < this.availableColors.length) {
 				index += 1
 				chosenColor = this.availableColors[index]
 			}
@@ -96,6 +96,7 @@ export default {
 			this.mapStore.areas[e.features[0].id] = {
 				coordinates: e.features[0].geometry.coordinates,
 				color: chosenColor,
+				porcentagem: 0,
 			}
 		},
 
@@ -147,11 +148,11 @@ export default {
 	transition: all 0.2s;
 }
 
-.btnConfig {
+.btnAreas {
 	top: 8%;
 }
 
-.btnRegions {
+.btnConfig {
 	top: 15%;
 }
 </style>
