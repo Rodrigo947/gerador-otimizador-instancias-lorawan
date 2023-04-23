@@ -1,0 +1,19 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.formatOnSave": true,
+  },
+  "autopep8.args": [
+    "--indent-size=2",
+    "--max-line-length=120",
+  ],
+  "pylint.args": [
+    "--indent-size=2",
+    "--max-line-length=120"
+  ],
+
+}
