@@ -27,7 +27,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG")
+DEBUG = True if os.environ.get("DJANGO_DEBUG") == True else False
 
 DOMAIN = os.environ.get("DOMAIN")
 
@@ -38,7 +38,6 @@ CORS_ALLOWED_ORIGINS = [
     f"https://{DOMAIN}"
 ]
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Application definition
