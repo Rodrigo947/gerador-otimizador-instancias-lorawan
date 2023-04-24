@@ -27,7 +27,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ.get("DJANGO_DEBUG") == True else False
+DEBUG = True if os.environ.get("DJANGO_DEBUG") == 'True' else False
 
 DOMAIN = os.environ.get("DOMAIN")
 
@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
-        'NAME': os.environ["PGDATABASE"],
-        'USER': os.environ["PGUSER"],
-        'PASSWORD': os.environ["PGPASSWORD"],
-        'HOST': os.environ["PGHOST"],
-        'PORT': os.environ["PGPORT"],
+        'NAME': os.environ["PGDATABASE"] or 'postgres',
+        'USER': os.environ["PGUSER"] or 'postgres',
+        'PASSWORD': os.environ["PGPASSWORD"] or 'postgres',
+        'HOST': os.environ["PGHOST"] or 'localhost',
+        'PORT': os.environ["PGPORT"] or '5439',
     }
 }
 

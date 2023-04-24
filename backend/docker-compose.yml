@@ -1,0 +1,25 @@
+services:
+  postgis:
+    image: postgis/postgis:latest
+    container_name: postgis
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+    ports:
+      - 5439:5432
+    networks:
+      goil_network:
+        ipv4_address: 192.168.94.101
+
+networks:
+  goil_network:
+    driver: bridge
+    name: goil_network
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.94.0/24
