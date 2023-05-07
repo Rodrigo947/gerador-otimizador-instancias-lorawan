@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import { useMapStore } from '../stores/mapStore'
 import { useDrawerControls } from '../stores/drawerControls.ts'
+import { useMapStore } from '../stores/mapStore'
 const dc = useDrawerControls()
 </script>
 
@@ -96,7 +96,7 @@ export default {
 			this.mapStore.areas[e.features[0].id] = {
 				coordinates: e.features[0].geometry.coordinates,
 				color: chosenColor,
-				porcentagem: 0,
+				percent: 0,
 			}
 		},
 

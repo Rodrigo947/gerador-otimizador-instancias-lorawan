@@ -7,9 +7,10 @@
 	"editor.tabSize": 2,
 	"editor.detectIndentation": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"volar.inlayHints.eventArgumentInInlineHandlers": false,
+
 	"[vue]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"vue.features.codeActions.enable": false
+
+	"vue.inlayHints.optionsWrapper": false
 }

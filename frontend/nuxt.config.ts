@@ -15,6 +15,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
+			baseURL: process.env.BASE_URL || 'http://localhost:8000',
 		},
 	},
 })

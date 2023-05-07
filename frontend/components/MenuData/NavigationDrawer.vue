@@ -1,15 +1,16 @@
 <template>
-	<v-navigation-drawer v-model="drawer" location="right" width="400">
+	<v-navigation-drawer v-model="drawer" location="right" width="400" permanent>
 		<MenuDataFormAreas v-if="lastBtnClicked === 'areas'" />
 		<MenuDataFormConfigs v-else />
 		<div class="d-flex flex-grow-1 align-end pa-4">
-			<v-btn class="d-flex w-100" color="success">Gerar</v-btn>
+			<v-btn class="d-flex w-100" color="success" @click="generateInstace()">Gerar</v-btn>
 		</div>
 	</v-navigation-drawer>
 </template>
 
 <script setup>
 import { useDrawerControls } from '../../stores/drawerControls.ts'
+import { useMapStore } from '../../stores/mapStore.ts'
 </script>
 
 <script>
@@ -17,6 +18,7 @@ export default {
 	data() {
 		return {
 			dc: useDrawerControls(),
+			ms: useMapStore(),
 		}
 	},
 	computed: {
@@ -25,6 +27,24 @@ export default {
 		},
 		lastBtnClicked() {
 			return this.dc.lastBtnClicked
+		},
+		getAreas() {
+			return this.ms.areas
+		},
+		getConfigs() {
+			return this.ms.configs
+		},
+	},
+	methods: {
+		async generateInstace() {
+			console.log(this.getConfigs)
+			console.log(this.getAreas)
+			const response = await $fetch('api/generate_instance', {
+				baseURL: this.$config.baseURL,
+				method: 'POST',
+				body: { areas: this.getAreas, configs: this.getConfigs },
+			})
+			console.log(response)
 		},
 	},
 }

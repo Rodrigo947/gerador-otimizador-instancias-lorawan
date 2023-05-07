@@ -15,14 +15,14 @@
 				<v-list-item>2. Quanto maior o peso maior a probabildade de clientes serem gerados na área.</v-list-item>
 				<v-list-item>3. A soma dos pesos deve ser igual a 100%</v-list-item>
 			</v-list>
-			<div v-for="area in areas">
-				<v-text-field label="Peso" v-model="area.porcentagem" type="number" suffix="%" min="0" max="100">
+			<div v-for="area in areas" :key="area.id">
+				<v-text-field label="Peso" v-model="area.percent" type="number" suffix="%" min="0" max="100">
 					<template v-slot:prepend-inner>
 						<v-icon :color="area.color" icon="mdi-circle"></v-icon>
 					</template>
 				</v-text-field>
 			</div>
-			<v-list-item>Total de porcentagem: {{ totalPorcentagem }}%</v-list-item>
+			<v-list-item>Total de porcentagem: {{ totalPercent }}%</v-list-item>
 		</div>
 	</div>
 </template>
@@ -42,10 +42,10 @@ export default {
 		areas() {
 			return this.mapStore.areas
 		},
-		totalPorcentagem() {
+		totalPercent() {
 			let total = 0
 			for (const area of Object.values(this.areas)) {
-				total += parseInt(area.porcentagem)
+				total += parseInt(area.percent)
 			}
 			return total
 		},
