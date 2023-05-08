@@ -39,10 +39,19 @@ export default {
 		async generateInstace() {
 			console.log(this.getConfigs)
 			console.log(this.getAreas)
+
+			const areas = []
+			for (const area of Object.values(this.getAreas)) {
+				areas.push({
+					coordinates: area.coordinates[0],
+					percent: area.percent,
+				})
+			}
+
 			const response = await $fetch('api/generate_instance', {
 				baseURL: this.$config.baseURL,
 				method: 'POST',
-				body: { areas: this.getAreas, configs: this.getConfigs },
+				body: { areas: areas, configs: this.getConfigs },
 			})
 			console.log(response)
 		},
