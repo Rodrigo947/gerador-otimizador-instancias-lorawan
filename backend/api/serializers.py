@@ -54,7 +54,7 @@ class DataInstanceSerializer(serializers.Serializer):
       except:
         raise serializers.ValidationError("Invalid area")
 
-    if totalPercent is not 100:
+    if totalPercent != 100:
       raise serializers.ValidationError("The sum of weights must be 100")
 
     return areas

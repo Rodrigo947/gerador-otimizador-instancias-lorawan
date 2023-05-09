@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ['localhost', DOMAIN]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    f"https://{DOMAIN}"
+    f"https://{DOMAIN}/"
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
