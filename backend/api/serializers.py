@@ -15,8 +15,16 @@ class DataInstanceSerializer(serializers.Serializer):
 
     if clients <= 0:
       raise serializers.ValidationError("Value of clients must be greater than 0")
-    else:
-      return configs
+
+    try:
+      seed = int(configs['seed'])
+    except:
+      raise serializers.ValidationError("Value of seed isn't a number")
+
+    if seed <= 0:
+      raise serializers.ValidationError("Value of seed must be greater than 0")
+
+    return configs
 
   def validate_areas(self, areas):
     totalPercent = 0

@@ -86,3 +86,21 @@ class Cursor:
     """
     with connections['default'].cursor() as cur:
       cur.execute(query)
+
+  def getClients(tb_name):
+    query = f"""
+      SELECT 
+        ST_X(point_coordinates) longitude, 
+        ST_Y(point_coordinates) latitude
+      FROM tb_{tb_name}_clients;
+    """
+
+    with connections['default'].cursor() as cur:
+      cur.execute(query)
+
+      columns = [col[0] for col in cur.description]
+
+      return [
+          dict(zip(columns, row))
+          for row in cur.fetchall()
+      ]
