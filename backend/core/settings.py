@@ -29,14 +29,14 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get("DJANGO_DEBUG") == 'True' else False
 
-DOMAIN = os.environ.get("DOMAIN")
+DOMAIN_BACKEND = os.environ.get("DOMAIN_BACKEND")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', DOMAIN_BACKEND]
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', DOMAIN]
-
+DOMAIN_FRONEND = os.environ.get("DOMAIN_FRONEND")
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost",
-    f"https://{DOMAIN}"
+    f"https://{DOMAIN_FRONEND}"
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
