@@ -53,7 +53,10 @@ class Cursor:
   def insert_area(tb_name, area_coordinates, weight):
     query = f"""
     INSERT INTO tb_{tb_name}_areas(area_coordinates, weight)
-      VALUES ('POLYGON(({area_coordinates}))', {weight});
+      VALUES (
+        ST_GeomFromText('POLYGON(({area_coordinates}))', 4326), 
+        {weight}
+      );
     """
 
     with connections['default'].cursor() as cur:

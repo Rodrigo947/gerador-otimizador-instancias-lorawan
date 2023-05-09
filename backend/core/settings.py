@@ -32,11 +32,11 @@ DEBUG = True if os.environ.get("DJANGO_DEBUG") == 'True' else False
 DOMAIN_BACKEND = os.environ.get("DOMAIN_BACKEND")
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', DOMAIN_BACKEND]
 
-DOMAIN_FRONEND = os.environ.get("DOMAIN_FRONEND")
+DOMAIN_FRONTEND = os.environ.get("DOMAIN_FRONTEND")
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost",
-    f"https://{DOMAIN_FRONEND}"
+    f"https://{DOMAIN_FRONTEND}"
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
