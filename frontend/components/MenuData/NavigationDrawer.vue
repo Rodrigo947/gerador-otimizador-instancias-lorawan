@@ -3,57 +3,85 @@
 		<MenuDataFormAreas v-if="lastBtnClicked === 'areas'" />
 		<MenuDataFormConfigs v-else />
 		<div class="d-flex flex-grow-1 align-end pa-4">
-			<v-btn class="d-flex w-100" color="success" @click="generateInstace()">Gerar</v-btn>
+			<v-snackbar v-model="showMsg" color="red-darken-1" location="right top" multi-line>
+				{{ erroMsg }}
+				<template v-slot:actions>
+					<v-btn icon="mdi-close" @click="showMsg = false"> </v-btn>
+				</template>
+			</v-snackbar>
+			<v-btn class="d-flex w-100" color="success" @click="generateInstace()" :disabled="isLoading" :loading="isLoading">
+				GERAR
+			</v-btn>
 		</div>
 	</v-navigation-drawer>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
 import { useDrawerControls } from '../../stores/drawerControls.ts'
+import { useInstanceStore } from '../../stores/instanceStore.ts'
 import { useMapStore } from '../../stores/mapStore.ts'
+import translateErroMsg from '../../utils/translateErroMsg.ts'
+import validateData from '../../utils/validateData'
+
+const drawerControls = useDrawerControls()
+const { drawer, lastBtnClicked } = storeToRefs(drawerControls)
 </script>
 
 <script>
+const mapStore = useMapStore()
+const { areas, configs, btnDownloadDisabled } = storeToRefs(mapStore)
+
+const instanceStore = useInstanceStore()
+const { clientsCoordinates } = storeToRefs(instanceStore)
+
 export default {
 	data() {
 		return {
-			dc: useDrawerControls(),
-			ms: useMapStore(),
+			isLoading: false,
+			showMsg: false,
+			erroMsg: '',
+			areas: areas,
+			configs: configs,
+			clients: clientsCoordinates,
+			downloadDisabled: btnDownloadDisabled,
 		}
-	},
-	computed: {
-		drawer() {
-			return this.dc.drawer
-		},
-		lastBtnClicked() {
-			return this.dc.lastBtnClicked
-		},
-		getAreas() {
-			return this.ms.areas
-		},
-		getConfigs() {
-			return this.ms.configs
-		},
 	},
 	methods: {
 		async generateInstace() {
-			console.log(this.getConfigs)
-			console.log(this.getAreas)
+			this.isLoading = true
 
-			const areas = []
-			for (const area of Object.values(this.getAreas)) {
-				areas.push({
+			const erroMsg = validateData()
+			if (erroMsg !== 'valid') {
+				this.showMsg = true
+				this.erroMsg = erroMsg
+				this.isLoading = false
+				return
+			}
+
+			const areasSend = []
+			for (const area of Object.values(this.areas)) {
+				areasSend.push({
 					coordinates: area.coordinates[0],
 					percent: area.percent,
 				})
 			}
 
-			const response = await $fetch('api/generate_instance', {
-				baseURL: this.$config.baseURL,
-				method: 'POST',
-				body: { areas: areas, configs: this.getConfigs },
-			})
-			console.log(response)
+			try {
+				const response = await $fetch('api/generate_instance', {
+					baseURL: this.$config.baseURL,
+					method: 'POST',
+					body: { areas: areasSend, configs: this.configs },
+				})
+
+				this.clients = response.data
+				this.downloadDisabled = false
+			} catch (error) {
+				this.showMsg = true
+				this.erroMsg = translateErroMsg(error.response._data)
+			}
+
+			this.isLoading = false
 		},
 	},
 }

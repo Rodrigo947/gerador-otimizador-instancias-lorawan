@@ -22,7 +22,7 @@
 					</template>
 				</v-text-field>
 			</div>
-			<v-list-item>Total de porcentagem: {{ totalPercent }}%</v-list-item>
+			<v-list-item>Total do peso: {{ totalPercent }}%</v-list-item>
 		</div>
 	</div>
 </template>
