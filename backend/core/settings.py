@@ -31,7 +31,7 @@ DEBUG = True if os.environ.get("DJANGO_DEBUG") == 'True' else False
 
 DOMAIN = os.environ.get("DOMAIN")
 
-ALLOWED_HOSTS = ['localhost', DOMAIN]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', DOMAIN]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
