@@ -31,17 +31,18 @@
 		<v-btn
 			:icon="btnShowHide == 'hide' ? 'mdi-router-wireless-off' : 'mdi-router-wireless'"
 			size="x-small"
-			class="btnFloatingLeft btnHideShowMarker"
+			class="btnFloatingLeft btnHideShowRouter"
 			:title="btnShowHide == 'hide' ? 'Esconder áreas' : 'Mostrar áreas'"
 			@click="btnShowHide == 'hide' ? hideAreas() : showAreas()"
 		></v-btn>
 
 		<v-btn
-			:icon="btnShowHide == 'hide' ? 'mdi-map-marker-minus' : 'mdi-map-marker-plus'"
+			:icon="btnShowHideClients == 'hide' ? 'mdi-map-marker-minus' : 'mdi-map-marker-plus'"
 			size="x-small"
-			class="btnFloatingLeft btnHideShowRouter"
-			:title="btnShowHide == 'hide' ? 'Esconder áreas' : 'Mostrar áreas'"
-			@click="btnShowHide == 'hide' ? hideAreas() : showAreas()"
+			class="btnFloatingLeft btnHideShowClients"
+			:title="btnShowHideClients == 'hide' ? 'Esconder Clientes' : 'Mostrar Clientes'"
+			@click="btnShowHideClients == 'hide' ? hideMarkersClients() : showMarkersClients()"
+			:disabled="markersClients.length <= 0"
 		></v-btn>
 	</div>
 </template>
@@ -101,19 +102,26 @@ export default {
 			configs: configs,
 			drawer: drawer,
 			btnShowHide: 'hide',
+			btnShowHideClients: 'hide',
 		}
 	},
 	watch: {
-		clients(newClients) {
-			this.deleteMarkersClients()
-
+		async clients(newClients) {
+			await this.hideMarkersClients()
+			for (let i = 0; i < this.markersClients.length; i++) {
+				this.markersClients[i].pop()
+			}
+			this.btnShowHideClients = 'hide'
 			for (const client of newClients) {
 				const marker = this.createMarker(client.longitude, client.latitude, client.gateway_index)
 				this.markersClients.push(marker)
 			}
 		},
-		gateways(newGateways) {
-			this.deleteMarkersGateways()
+		async gateways(newGateways) {
+			await this.hideMarkersGateways()
+			for (let i = 0; i < this.markersGateways.length; i++) {
+				this.markersGateways[i].pop()
+			}
 			for (const [index, gateway] of newGateways.entries()) {
 				const marker = this.createGateway(gateway.longitude, gateway.latitude, index)
 				this.markersGateways.push(marker)
@@ -277,7 +285,8 @@ export default {
 			return gateway
 		},
 
-		deleteMarkersClients() {
+		async hideMarkersClients() {
+			this.btnShowHideClients = 'show'
 			if (this.markersClients.length > 0) {
 				for (let i = 0; i < this.markersClients.length; i++) {
 					this.markersClients[i].remove()
@@ -285,10 +294,19 @@ export default {
 			}
 		},
 
-		deleteMarkersGateways() {
+		async hideMarkersGateways() {
 			if (this.markersGateways.length > 0) {
 				for (let i = 0; i < this.markersGateways.length; i++) {
 					this.markersGateways[i].remove()
+				}
+			}
+		},
+
+		showMarkersClients() {
+			this.btnShowHideClients = 'hide'
+			if (this.markersClients.length > 0) {
+				for (let i = 0; i < this.markersClients.length; i++) {
+					this.markersClients[i].addTo(this.map)
 				}
 			}
 		},
@@ -364,7 +382,7 @@ export default {
 	top: 17%;
 }
 
-.btnHideShowMarker {
+.btnHideShowClients {
 	top: 22%;
 }
 
