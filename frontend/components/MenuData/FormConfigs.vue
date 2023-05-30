@@ -22,7 +22,8 @@
 			suffix="dBi"
 		>
 		</v-text-field>
-		<v-select v-model="configs.frequency" :items="[433, 915]" label="Frequência" min="1" suffix="MHz"></v-select>
+		<v-select v-model="configs.frequency" :items="[433, 915]" label="Frequência" suffix="MHz"></v-select>
+		<v-select v-model="configs.sf" :items="[7, 8, 9, 10, 11, 12]" label="SF"></v-select>
 	</div>
 </template>
 
