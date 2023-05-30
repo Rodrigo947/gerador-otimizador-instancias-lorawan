@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from api.views.generateInstance import GenerateInstance
+from api.views.generate_instance import GenerateInstance
 
 urlpatterns = [
     path('api/generate_instance', GenerateInstance.as_view(), name='api_generate_instance'),
