@@ -22,10 +22,11 @@ class GenerateInstance(APIView):
       power = serializer.data['configs']['transmissionPower']
       antennaGain = serializer.data['configs']['antennaGain']
       frequency = serializer.data['configs']['frequency']
+      sf = serializer.data['configs']['sf']
 
       clients = CreateClients.create(areas, seed, quant_clients)
 
-      cg = CreateGateways(power, antennaGain, antennaGain, frequency, 7)
+      cg = CreateGateways(power, antennaGain, antennaGain, frequency, sf)
       cg.create(clients)
 
       gateways = cg.getValidGateways()
