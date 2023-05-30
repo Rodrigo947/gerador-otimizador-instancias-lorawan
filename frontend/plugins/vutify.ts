@@ -11,6 +11,7 @@ import {
 	VListSubheader,
 	VMain,
 	VNavigationDrawer,
+	VSelect,
 	VSnackbar,
 	VTextField,
 } from 'vuetify/components'
@@ -33,6 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 			VTextField,
 			VIcon,
 			VSnackbar,
+			VSelect,
 		},
 		directives,
 	})

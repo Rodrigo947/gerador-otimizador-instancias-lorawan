@@ -33,7 +33,7 @@ const mapStore = useMapStore()
 const { areas, configs, btnDownloadDisabled } = storeToRefs(mapStore)
 
 const instanceStore = useInstanceStore()
-const { clientsCoordinates } = storeToRefs(instanceStore)
+const { clientsStore, gatewaysStore } = storeToRefs(instanceStore)
 
 export default {
 	data() {
@@ -43,7 +43,8 @@ export default {
 			erroMsg: '',
 			areas: areas,
 			configs: configs,
-			clients: clientsCoordinates,
+			clients: clientsStore,
+			gateways: gatewaysStore,
 			downloadDisabled: btnDownloadDisabled,
 		}
 	},
@@ -74,7 +75,18 @@ export default {
 					body: { areas: areasSend, configs: this.configs },
 				})
 
-				this.clients = response.data
+				let clients = []
+				let gateways = []
+				for (const row of response.data) {
+					for (const client of row.clients) {
+						clients.push(client)
+					}
+
+					gateways.push(row.gateway)
+				}
+
+				this.clients = clients
+				this.gateways = gateways
 				this.downloadDisabled = false
 			} catch (error) {
 				this.showMsg = true

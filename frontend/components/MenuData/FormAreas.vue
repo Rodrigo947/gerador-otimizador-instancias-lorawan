@@ -1,9 +1,9 @@
 <template>
 	<div class="px-2">
-		<h2 class="pa-4 text-center">Áreas</h2>
+		<h2 class="pa-4 text-center">Pesos das áreas</h2>
 
 		<v-list v-if="Object.values(areas).length === 0">
-			<v-list-subheader>Para desenhar uma area:</v-list-subheader>
+			<v-list-subheader>Para desenhar uma área:</v-list-subheader>
 			<v-list-item> 1. Selecione a ferramenta de desenho <v-icon icon="mdi-vector-square"></v-icon> </v-list-item>
 			<v-list-item>2. Selecione os pontos até que forme a área desejada</v-list-item>
 			<v-list-item>3. Para finalizar, clique em ponto já criado que feche o desenho</v-list-item>

@@ -1,12 +1,47 @@
 <template>
 	<div id="map">
-		<v-btn icon="mdi-cog" class="btnFloating btnConfig" @click="dc.changeDrawer('config')"></v-btn>
-		<v-btn icon="mdi-vector-square-edit" class="btnFloating btnAreas" @click="dc.changeDrawer('areas')"></v-btn>
+		<v-btn
+			icon="mdi-weight"
+			class="btnFloating btnAreas"
+			title="Pesos das áreas"
+			@click="dc.changeDrawer('areas')"
+		></v-btn>
+		<v-btn
+			icon="mdi-cog"
+			class="btnFloating btnConfig"
+			title="Configurações"
+			@click="dc.changeDrawer('config')"
+		></v-btn>
 		<v-btn
 			icon="mdi-download"
 			class="btnFloating btnDownload"
+			title="Download da instância gerada"
 			@click="downloadCSVData()"
 			:disabled="downloadDisabled"
+		></v-btn>
+		<v-btn
+			:icon="btnShowHide == 'hide' ? 'mdi-vector-square-minus' : 'mdi-vector-square-plus'"
+			size="x-small"
+			class="btnFloatingLeft btnHideShow"
+			:title="btnShowHide == 'hide' ? 'Esconder áreas' : 'Mostrar áreas'"
+			@click="btnShowHide == 'hide' ? hideAreas() : showAreas()"
+			:disabled="Object.keys(areas).length <= 0"
+		></v-btn>
+
+		<v-btn
+			:icon="btnShowHide == 'hide' ? 'mdi-router-wireless-off' : 'mdi-router-wireless'"
+			size="x-small"
+			class="btnFloatingLeft btnHideShowMarker"
+			:title="btnShowHide == 'hide' ? 'Esconder áreas' : 'Mostrar áreas'"
+			@click="btnShowHide == 'hide' ? hideAreas() : showAreas()"
+		></v-btn>
+
+		<v-btn
+			:icon="btnShowHide == 'hide' ? 'mdi-map-marker-minus' : 'mdi-map-marker-plus'"
+			size="x-small"
+			class="btnFloatingLeft btnHideShowRouter"
+			:title="btnShowHide == 'hide' ? 'Esconder áreas' : 'Mostrar áreas'"
+			@click="btnShowHide == 'hide' ? hideAreas() : showAreas()"
 		></v-btn>
 	</div>
 </template>
@@ -33,10 +68,10 @@ const drawerControls = useDrawerControls()
 const { drawer } = storeToRefs(drawerControls)
 
 const mapStore = useMapStore()
-const { areas, markersClients, btnDownloadDisabled, configs } = storeToRefs(mapStore)
+const { areas, markersClients, btnDownloadDisabled, configs, markersGateways } = storeToRefs(mapStore)
 
 const instanceStore = useInstanceStore()
-const { clientsCoordinates } = storeToRefs(instanceStore)
+const { clientsStore, gatewaysStore } = storeToRefs(instanceStore)
 
 export default {
 	data() {
@@ -56,21 +91,32 @@ export default {
 				'#6b6bd6',
 			],
 			usedColors: [],
+			allDrawAreas: undefined,
 			areas: areas,
 			markersClients: markersClients,
-			clientsCoordinates: clientsCoordinates,
+			markersGateways: markersGateways,
+			clients: clientsStore,
+			gateways: gatewaysStore,
 			downloadDisabled: btnDownloadDisabled,
 			configs: configs,
 			drawer: drawer,
+			btnShowHide: 'hide',
 		}
 	},
 	watch: {
-		clientsCoordinates(newClients) {
-			this.deleteMarkers()
+		clients(newClients) {
+			this.deleteMarkersClients()
 
 			for (const client of newClients) {
-				const marker = this.createMarker(client.longitude, client.latitude)
+				const marker = this.createMarker(client.longitude, client.latitude, client.gateway_index)
 				this.markersClients.push(marker)
+			}
+		},
+		gateways(newGateways) {
+			this.deleteMarkersGateways()
+			for (const [index, gateway] of newGateways.entries()) {
+				const marker = this.createGateway(gateway.longitude, gateway.latitude, index)
+				this.markersGateways.push(marker)
 			}
 		},
 		drawer(newValue) {
@@ -145,6 +191,7 @@ export default {
 				coordinates: e.features[0].geometry.coordinates,
 				color: chosenColor,
 				percent: 0,
+				features: e.features[0],
 			}
 		},
 
@@ -178,18 +225,70 @@ export default {
 				},
 			})
 
-			this.mapStore.areas[e.features[0].id].coordinates = e.features[0].geometry.coordinates
+			this.areas[e.features[0].id].coordinates = e.features[0].geometry.coordinates
+			this.areas[e.features[0].id].features = e.features[0]
 		},
 
-		createMarker(long, lat) {
-			const marker = new mapboxgl.Marker({ color: '#4545f0' }).setLngLat([long, lat]).addTo(this.map)
+		hideAreas() {
+			this.btnShowHide = 'show'
+			this.allDrawAreas = this.draw.getAll()
+			this.draw.deleteAll()
+			for (const index of Object.keys(this.areas)) {
+				this.map.removeLayer(`${index}_fill`)
+				this.map.removeSource(index)
+			}
+		},
+
+		showAreas() {
+			this.btnShowHide = 'hide'
+			this.draw.set(this.allDrawAreas)
+			this.allDrawAreas = undefined
+
+			for (const [index, area] of Object.entries(this.areas)) {
+				this.map.addSource(index, {
+					type: 'geojson',
+					data: area.features,
+				})
+
+				this.map.addLayer({
+					id: `${index}_fill`,
+					type: 'fill',
+					source: index,
+					paint: {
+						'fill-color': area.color,
+						'fill-opacity': 0.6,
+					},
+				})
+			}
+		},
+
+		createMarker(long, lat, cluster) {
+			const marker = new mapboxgl.Marker({ color: this.availableColors[cluster] })
+				.setLngLat([long, lat])
+				.addTo(this.map)
 			return marker
 		},
 
-		deleteMarkers() {
+		createGateway(long, lat, cluster) {
+			const el = document.createElement('i')
+			el.className = 'mdi-router-wireless  mdi v-icon v-theme--light v-icon--size-x-large'
+			el.style.color = this.availableColors[cluster]
+			const gateway = new mapboxgl.Marker(el).setLngLat([long, lat]).addTo(this.map)
+			return gateway
+		},
+
+		deleteMarkersClients() {
 			if (this.markersClients.length > 0) {
 				for (let i = 0; i < this.markersClients.length; i++) {
 					this.markersClients[i].remove()
+				}
+			}
+		},
+
+		deleteMarkersGateways() {
+			if (this.markersGateways.length > 0) {
+				for (let i = 0; i < this.markersGateways.length; i++) {
+					this.markersGateways[i].remove()
 				}
 			}
 		},
@@ -205,9 +304,10 @@ export default {
 
 			let json = {
 				seed: this.configs.seed,
-				totalClients: this.clientsCoordinates.length,
+				totalClients: this.clients.length,
 				areaConfigs: areaConfigs,
-				clientsCoordinates: this.clientsCoordinates,
+				clients: this.clients,
+				gateways: this.gateways,
 			}
 
 			const objectDate = new Date()
@@ -215,7 +315,7 @@ export default {
 			const month = objectDate.getMonth()
 			const year = objectDate.getFullYear()
 			const seed = this.configs.seed
-			const clients = this.clientsCoordinates.length
+			const clients = this.clients.length
 
 			const name_file = `S${seed}_C${clients}_Y${year}_M${month}_D${day}.json`
 
@@ -241,6 +341,13 @@ export default {
 	transition: all 0.2s;
 }
 
+.btnFloatingLeft {
+	position: absolute;
+	left: 9px;
+	z-index: 1;
+	transition: all 0.2s;
+}
+
 .btnAreas {
 	top: 8%;
 }
@@ -251,5 +358,21 @@ export default {
 
 .btnDownload {
 	top: 22%;
+}
+
+.btnHideShow {
+	top: 17%;
+}
+
+.btnHideShowMarker {
+	top: 22%;
+}
+
+.btnHideShowRouter {
+	top: 27%;
+}
+
+.v-icon--size-x-large {
+	font-size: calc(var(--v-icon-size-multiplier) * 3em);
 }
 </style>

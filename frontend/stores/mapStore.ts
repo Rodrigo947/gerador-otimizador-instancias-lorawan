@@ -5,9 +5,13 @@ export const useMapStore = defineStore('mapStore', {
 		areas: {},
 		configs: {
 			clients: 10,
+			transmissionPower: 25.11,
+			antennaGain: 2.15,
+			frequency: 915,
 			seed: 947,
 		},
 		btnDownloadDisabled: true,
 		markersClients: [],
+		markersGateways: [],
 	}),
 })
