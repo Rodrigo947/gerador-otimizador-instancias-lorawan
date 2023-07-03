@@ -15,5 +15,8 @@ export const useDrawerControls = defineStore('drawerControls', {
 
 			this.lastBtnClicked = btnClicked
 		},
+		closeDrawer() {
+			this.drawer = false
+		},
 	},
 })

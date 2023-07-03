@@ -16,7 +16,7 @@
 			icon="mdi-download"
 			class="btnFloating btnDownload"
 			title="Download da instância gerada"
-			@click="downloadCSVData()"
+			@click="downloadJSONData()"
 			:disabled="downloadDisabled"
 		></v-btn>
 		<v-btn
@@ -306,7 +306,7 @@ export default {
 			}
 		},
 
-		downloadCSVData() {
+		downloadJSONData() {
 			let areaConfigs = []
 			for (const area of Object.values(this.areas)) {
 				areaConfigs.push({
@@ -362,27 +362,27 @@ export default {
 }
 
 .btnAreas {
-	top: 8%;
+	top: 60px;
 }
 
 .btnConfig {
-	top: 15%;
+	top: 120px;
 }
 
 .btnDownload {
-	top: 22%;
+	top: 180px;
 }
 
 .btnHideShow {
-	top: 17%;
+	top: 150px;
 }
 
 .btnHideShowClients {
-	top: 22%;
+	top: 190px;
 }
 
 .btnHideShowGatetays {
-	top: 27%;
+	top: 230px;
 }
 
 .v-icon--size-x-large {

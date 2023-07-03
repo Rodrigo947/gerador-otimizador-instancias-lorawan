@@ -1,5 +1,6 @@
 <template>
 	<v-navigation-drawer v-model="drawer" location="right" width="400" permanent>
+		<v-btn icon="mdi-close" class="ms-5 btnClose" variant="plain" @click="drawerControls.closeDrawer()"></v-btn>
 		<MenuDataFormAreas v-if="lastBtnClicked === 'areas'" />
 		<MenuDataFormConfigs v-else />
 		<div class="d-flex flex-grow-1 align-end pa-4">
@@ -103,5 +104,11 @@ export default {
 .v-navigation-drawer__content {
 	display: flex;
 	flex-direction: column;
+}
+
+.btnClose {
+	position: absolute;
+	top: 10px;
+	right: 1px;
 }
 </style>
