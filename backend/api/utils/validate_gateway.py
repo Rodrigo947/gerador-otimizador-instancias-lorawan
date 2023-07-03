@@ -28,16 +28,46 @@ class ValidateGateway:
         11: -17.5,
         12: -20
     }
-    self.SFDistanceLimits = {
-        7: 3500,
-        8: 4000,
-        9: 5000,
-        10: 6000,
-        11: 7500,
-        12: 9000
+    self.distanceLimitsBySFAndPower = {
+        7: {
+            5: 2000,
+            20: 2500,
+            50: 3200,
+            100: 3800
+        },
+        8: {
+            5: 2400,
+            20: 3000,
+            50: 3600,
+            100: 4400
+        },
+        9: {
+            5: 2600,
+            20: 3500,
+            50: 4200,
+            100: 5000
+        },
+        10: {
+            5: 3000,
+            20: 4000,
+            50: 5000,
+            100: 6000
+        },
+        11: {
+            5: 3500,
+            20: 4800,
+            50: 6000,
+            100: 7400
+        },
+        12: {
+            5: 4000,
+            20: 5800,
+            50: 7300,
+            100: 9000
+        },
     }
 
-  def calcPr(self, distance):
+  def calcReceivePower(self, distance):
     """
       distance(meters)
     """
@@ -68,16 +98,16 @@ class ValidateGateway:
     for index, row in clients.iterrows():
       distance = self.distance(coords_gateway, tuple(row[['latitude', 'longitude']]))
 
-      if distance > self.SFDistanceLimits[self.sf]:
+      if distance > self.distanceLimitsBySFAndPower[self.sf][self.power]:
         return False, False
 
-      pr = self.calcPr(distance)
-      clients.at[index, 'distance_to_gateway'] = distance
-      clients.at[index, 'pr'] = pr
+      rp = self.calcReceivePower(distance)
+      clients.loc[index, 'distance_to_gateway'] = distance
+      clients.loc[index, 'receive_power'] = rp
 
-    totalNoise = clients['pr'].sum()
+    totalNoise = clients['receive_power'].sum()
     for index, row in clients.iterrows():
-      snr = self.snr(totalNoise, row['pr'])
+      snr = self.snr(totalNoise, row['receive_power'])
 
       if snr < self.SFNoiseLimits[self.sf]:
         return False, False

@@ -9,20 +9,52 @@ class DataInstanceSerializer(serializers.Serializer):
 
   def validate_configs(self, configs):
     try:
-      clients = int(configs['clients'])
+      configs['clients'] = int(configs['clients'])
     except:
-      raise serializers.ValidationError("Value of clients isn't a number")
+      raise serializers.ValidationError("Value of clients isn't a number.")
 
-    if clients <= 0:
-      raise serializers.ValidationError("Value of clients must be greater than 0")
+    if configs['clients'] <= 0:
+      raise serializers.ValidationError("Value of clients must be greater than 0.")
 
     try:
-      seed = int(configs['seed'])
+      configs['seed'] = int(configs['seed'])
     except:
-      raise serializers.ValidationError("Value of seed isn't a number")
+      raise serializers.ValidationError("Value of seed isn't a number.")
 
-    if seed <= 0:
-      raise serializers.ValidationError("Value of seed must be greater than 0")
+    if configs['seed'] <= 0:
+      raise serializers.ValidationError("Value of seed must be greater than 0.")
+
+    try:
+      configs['transmissionPower'] = int(configs['transmissionPower'])
+    except:
+      raise serializers.ValidationError("Value of transmission power isn't a number.")
+
+    if configs['transmissionPower'] not in [5, 20, 50, 100]:
+      raise serializers.ValidationError("Value of transmission power invalid. Only accept 5, 20, 50 or 100.")
+
+    try:
+      configs['antennaGain'] = float(configs['antennaGain'])
+    except:
+      raise serializers.ValidationError("Value of antenna gain power isn't a number.")
+
+    if configs['antennaGain'] < 0.01:
+      raise serializers.ValidationError("Value of antenna gain must be greater or equal than 0.01.")
+
+    try:
+      configs['frequency'] = int(configs['frequency'])
+    except:
+      raise serializers.ValidationError("Value of frequency isn't a number.")
+
+    if configs['frequency'] not in [433, 915]:
+      raise serializers.ValidationError("Value of frequency invalid. Only accept 433 or 915.")
+
+    try:
+      configs['sf'] = int(configs['sf'])
+    except:
+      raise serializers.ValidationError("Value of SF isn't a number.")
+
+    if configs['sf'] not in [7, 8, 9, 10, 11, 12]:
+      raise serializers.ValidationError("Value of SF invalid. Only accept 7, 8, 9, 10, 11 or 12.")
 
     return configs
 

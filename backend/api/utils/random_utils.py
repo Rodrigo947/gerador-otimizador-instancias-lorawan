@@ -17,10 +17,10 @@ class RandomUtils:
     dictNumberIdArea = {}
 
     rangeStart = 0
-    for result in results:
-      for n in range(rangeStart, rangeStart + result['weight']):
-        dictNumberIdArea[n] = result['id']
-      rangeStart = rangeStart + result['weight']
+    for area in results:
+      for n in range(rangeStart, rangeStart + area['weight']):
+        dictNumberIdArea[n] = area['id']
+      rangeStart = rangeStart + area['weight']
 
     return dictNumberIdArea
 

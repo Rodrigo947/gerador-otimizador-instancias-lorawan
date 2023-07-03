@@ -23,7 +23,7 @@ class CreateGateways:
     self.actualLabel = 0
 
   def clustering(self, df_clients: pd.DataFrame, clusters):
-    kmeans = KMeans(n_clusters=clusters, init='k-means++')
+    kmeans = KMeans(n_clusters=clusters, init='k-means++', n_init=10)
     kmeans.fit(df_clients)  # Compute k-means clustering.
     df_clients['gateway_index'] = kmeans.fit_predict(df_clients)
     centers = kmeans.cluster_centers_  # Coordinates of cluster centers.
