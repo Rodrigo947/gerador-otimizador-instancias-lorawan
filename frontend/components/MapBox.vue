@@ -316,8 +316,7 @@ export default {
 			}
 
 			let json = {
-				seed: this.configs.seed,
-				totalClients: this.clients.length,
+				configs: this.configs,
 				areaConfigs: areaConfigs,
 				clients: this.clients,
 				gateways: this.gateways,
