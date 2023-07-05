@@ -99,7 +99,8 @@ export default {
 	watch: {
 		async clients(newClients) {
 			await this.hideMarkersClients()
-			for (let i = 0; i < this.markersClients.length; i++) {
+			let size = this.markersClients.length
+			for (let i = 0; i < size; i++) {
 				this.markersClients.pop()
 			}
 			this.usedColors = []
@@ -110,7 +111,8 @@ export default {
 			}
 
 			await this.hideMarkersGateways()
-			for (let i = 0; i < this.markersGateways.length; i++) {
+			size = this.markersGateways.length
+			for (let i = 0; i < size; i++) {
 				this.markersGateways.pop()
 			}
 			this.btnShowHideGateways = 'hide'
