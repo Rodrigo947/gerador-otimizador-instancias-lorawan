@@ -1,9 +1,8 @@
-import time
-
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from api.models import Logs
 from api.serializers import DataInstanceSerializer
 from api.utils.create_clients import CreateClients
 from api.utils.create_gateways import CreateGateways
@@ -30,6 +29,9 @@ class GenerateInstance(APIView):
       cg.create(clients)
 
       gateways = cg.getValidGateways()
+
+      log = Logs()
+      log.save()
 
       return Response({'data': gateways})
     else:

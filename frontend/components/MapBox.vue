@@ -53,7 +53,7 @@ import { storeToRefs } from 'pinia'
 import { useDrawerControls } from '../stores/drawerControls.ts'
 import { useInstanceStore } from '../stores/instanceStore.ts'
 import { useMapStore } from '../stores/mapStore'
-import gerarCorRandomica from '../utils/gerarCorRandomica'
+import generateRandomColor from '../utils/generateRandomColor'
 const dc = useDrawerControls()
 </script>
 
@@ -171,7 +171,7 @@ export default {
 				data: e.features[0],
 			})
 
-			const color = gerarCorRandomica()
+			const color = generateRandomColor()
 
 			this.map.addLayer({
 				id: `${e.features[0].id}_fill`,
@@ -256,7 +256,7 @@ export default {
 
 		createMarker(long, lat, cluster) {
 			if (this.usedColors.length <= cluster) {
-				const color = gerarCorRandomica()
+				const color = generateRandomColor()
 				this.usedColors.push(color)
 			}
 

@@ -1,4 +1,4 @@
-export default function gerarCorRandomica() {
+export default function generateRandomColor() {
 	// Gerar valores aleatórios para R, G e B
 	const r = Math.floor(Math.random() * 256)
 	const g = Math.floor(Math.random() * 256)
