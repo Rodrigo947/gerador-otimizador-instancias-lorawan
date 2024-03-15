@@ -60,3 +60,60 @@ PGPASSWORD=postgres
 PGHOST=localhost
 PGPORT=5439
 ```
+
+3. Instale o pipenv e as dependências do projeto:
+
+```bash
+$ pip install pipenv
+$ pipenv install
+$ pipenv shell
+```
+
+4. Execute o comando abaixo para preencher a base de dados com as tabelas necessárias:
+
+```bash
+$ python manage.py migrate
+```
+
+5. Execute o comando referente ao ambiente que deseja criar:
+
+```bash
+$ python manage.py runserver (ambiente de desenvolvimento)
+$ gunicorn core.wsgi (ambiente de produção LINUX)
+```
+
+## Frontend
+
+### Requisitos
+
+- Node v18
+
+### Passo a passo
+
+1. Baixe as dependências necessárias com seu gerenciador preferido executando qualquer comando abaixo na raiz da pasta do frontend:
+
+```bash
+$ npm install
+$ yarn install
+$ pnpm install
+```
+
+2. Crie uma conta no Mapbox (https://account.mapbox.com/) e gere um TOKEN
+
+3. Crie um arquivo .env na raiz da pasta do frontend e preencha as seguintes variáveis de ambiente:
+
+```
+MAPBOX_TOKEN= TOKEN gerado na plataforma do Mapbox
+BASE_URL= FQDN do frontend
+```
+
+5. Execute o comando referente ao ambiente que deseja criar:
+
+```bash
+$ npm/yarn/pnpm dev (Ambiente de desenvolvimento)
+$ npm/yarn/pnpm build (Ambiente de produção)
+```
+
+Obs.: no ambiente do produção será gerado uma pasta chamada .output. Essa pasta deve ser servida por um servidor HTTP da sua escolha (APACHE, NGINX e afins)
+
+# Como utilizar o sistema
