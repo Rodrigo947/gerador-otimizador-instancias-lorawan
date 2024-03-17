@@ -2,6 +2,8 @@
 
 Esse sistema é um sistema de planejamento de redes LoRaWAN capaz de gerar datasets com soluções otimizadas, permitindo aos administradores ajustar os parâmetros conforme suas necessidades e facilitando novas pesquisas na área. O sistema recebe parâmetros de configuração da rede, regiões a serem atendidas e densidade de usuários, gerando como saída a localização dos nós clientes e dos gateways necessários para cobertura total da área.
 
+O sistema pode ser acessado em: https://goil.vercel.app/
+
 # Arquitetura
 
 - Frontend: Vue.js (https://vuejs.org/)
@@ -90,11 +92,10 @@ $ gunicorn core.wsgi (ambiente de produção LINUX)
 
 ### Passo a passo
 
-1. Baixe as dependências necessárias com seu gerenciador preferido executando qualquer comando abaixo na raiz da pasta do frontend:
+1. Instale o pnpm e baixe as dependências necessárias comando abaixo na raiz da pasta do frontend:
 
 ```bash
-$ npm install
-$ yarn install
+$ npm install -g pnpm
 $ pnpm install
 ```
 
@@ -110,10 +111,13 @@ BASE_URL= FQDN do frontend
 5. Execute o comando referente ao ambiente que deseja criar:
 
 ```bash
-$ npm/yarn/pnpm dev (Ambiente de desenvolvimento)
-$ npm/yarn/pnpm build (Ambiente de produção)
+$ pnpm dev (Ambiente de desenvolvimento)
+$ pnpm build (Ambiente de produção)
 ```
 
-Obs.: no ambiente do produção será gerado uma pasta chamada .output. Essa pasta deve ser servida por um servidor HTTP da sua escolha (APACHE, NGINX e afins)
+Obs.: No ambiente do produção será gerado uma pasta chamada .output. Essa pasta deve ser servida por um servidor HTTP da sua escolha (APACHE, NGINX e afins)
 
-# Como utilizar o sistema
+# Vídeos de instalação e utilização
+
+- Instalação do ambiente de desenvolvimento:
+- Utilização do sistema:
