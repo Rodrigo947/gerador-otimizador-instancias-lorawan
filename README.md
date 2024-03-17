@@ -44,7 +44,6 @@ DJANGO_DEBUG= debug ativo ou não (TRUE ou FALSE)
 DJANGO_SUPERUSER_EMAIL= login do super usuario do Django
 DJANGO_SUPERUSER_PASSWORD= senha do supeu usuario do Django
 DJANGO_SECRET_KEY= gere em https://djecrety.ir/
-DJANGO_PORT= porta onde a API irá responder
 
 PGDATABASE= nome da base de dados
 PGUSER= usuário do banco de dados
@@ -66,7 +65,7 @@ PGPORT=5439
 3. Instale o pipenv e as dependências do projeto:
 
 ```bash
-$ pip install pipenv
+$ apt install pipenv
 $ pipenv install
 $ pipenv shell
 ```
@@ -119,5 +118,5 @@ Obs.: No ambiente do produção será gerado uma pasta chamada .output. Essa pas
 
 # Vídeos de instalação e utilização
 
-- Instalação do ambiente de desenvolvimento:
-- Utilização do sistema:
+- Instalação do ambiente de desenvolvimento: https://youtu.be/gbmJZJV7sD0
+- Utilização do sistema: https://youtu.be/ka7KGQt5l0Y
