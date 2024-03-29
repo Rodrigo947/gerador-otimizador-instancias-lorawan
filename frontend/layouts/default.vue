@@ -2,7 +2,7 @@
 	<v-app>
 		<v-app-bar density="compact">
 			<v-app-bar-title class="text-center">
-				Gerador e Otimizador de Instâncias LoRaWAN
+				LoRaPlan: Gerador e Otimizador de Instâncias LoRaWAN
 				<span class="float-right log">{{ total }} | {{ used_at }}</span>
 			</v-app-bar-title>
 		</v-app-bar>

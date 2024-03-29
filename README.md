@@ -1,8 +1,10 @@
+# LoRaPlan: Ferramenta de Planejamento de Redes LoRaWAN
+
 # Descrição
 
 Esse sistema é um sistema de planejamento de redes LoRaWAN capaz de gerar datasets com soluções otimizadas, permitindo aos administradores ajustar os parâmetros conforme suas necessidades e facilitando novas pesquisas na área. O sistema recebe parâmetros de configuração da rede, regiões a serem atendidas e densidade de usuários, gerando como saída a localização dos nós clientes e dos gateways necessários para cobertura total da área.
 
-O sistema pode ser acessado em: https://goil.vercel.app/
+O sistema pode ser acessado em: https://loraplan.vercel.app/
 
 # Arquitetura
 
