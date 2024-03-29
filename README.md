@@ -2,7 +2,7 @@
 
 # Descrição
 
-Esse sistema é um sistema de planejamento de redes LoRaWAN capaz de gerar datasets com soluções otimizadas, permitindo aos administradores ajustar os parâmetros conforme suas necessidades e facilitando novas pesquisas na área. O sistema recebe parâmetros de configuração da rede, regiões a serem atendidas e densidade de usuários, gerando como saída a localização dos nós clientes e dos gateways necessários para cobertura total da área.
+LoRaPlan é um sistema de planejamento de redes LoRaWAN capaz de gerar datasets com soluções otimizadas, permitindo aos administradores ajustar os parâmetros conforme suas necessidades e facilitando novas pesquisas na área. O sistema recebe parâmetros de configuração da rede, regiões a serem atendidas e densidade de usuários, gerando como saída a localização dos nós clientes e dos gateways necessários para cobertura total da área.
 
 O sistema pode ser acessado em: https://loraplan.vercel.app/
 
@@ -122,3 +122,7 @@ Obs.: No ambiente do produção será gerado uma pasta chamada .output. Essa pas
 
 - Instalação do ambiente de desenvolvimento: https://youtu.be/gbmJZJV7sD0
 - Utilização do sistema: https://youtu.be/ka7KGQt5l0Y
+
+# Licença
+
+Esse projeto adere à licença MIT. Consulte o arquivo <a href="https://github.com/Rodrigo947/gerador-otimizador-instancias-lorawan/blob/master/LICENSE">LICENSE</a> para mais informações.
