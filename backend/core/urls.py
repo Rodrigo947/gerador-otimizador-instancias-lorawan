@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.urls import path
 
+from api.views.email import Email
 from api.views.generate_instance import GenerateInstance
 from api.views.log import Log
 
 urlpatterns = [
     path('api/generate_instance', GenerateInstance.as_view(), name='api_generate_instance'),
     path('api/log', Log.as_view(), name='log'),
+    path('api/email', Email.as_view(), name='email'),
 ]
