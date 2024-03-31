@@ -33,11 +33,15 @@ DOMAIN_BACKEND = os.environ.get("DOMAIN_BACKEND")
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', DOMAIN_BACKEND]
 
 DOMAIN_FRONTEND = os.environ.get("DOMAIN_FRONTEND")
+ANOTHER_DOMAINS = os.environ.get("ANOTHER_DOMAINS")
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost",
     f"https://{DOMAIN_FRONTEND}"
 ]
+
+CORS_ALLOWED_ORIGINS.extend(ANOTHER_DOMAINS.split(','))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
