@@ -14,7 +14,7 @@
 
 <script setup>
 useHead({
-	title: 'GOIL',
+	title: 'LoRaPlan',
 })
 </script>
 
