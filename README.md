@@ -15,6 +15,10 @@ O sistema pode ser acessado em: https://loraplan.vercel.app/
 
 # Como executar
 
+## Requisitos gerais
+- Sistema operacional Ubuntu 22 
+- Docker 25
+
 ## Backend
 
 ### Requisitos
