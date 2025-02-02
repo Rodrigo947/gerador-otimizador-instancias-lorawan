@@ -1,0 +1,2 @@
+[pkgs]
+packages = ["gcc", "pipenv", "postgresql_16", "python39"]

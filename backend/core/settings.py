@@ -41,7 +41,8 @@ CORS_ALLOWED_ORIGINS = [
     f"https://{DOMAIN_FRONTEND}"
 ]
 
-CORS_ALLOWED_ORIGINS.extend(ANOTHER_DOMAINS.split(','))
+if ANOTHER_DOMAINS:
+  CORS_ALLOWED_ORIGINS.extend(ANOTHER_DOMAINS.split(','))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
