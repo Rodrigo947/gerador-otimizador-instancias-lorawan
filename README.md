@@ -4,7 +4,8 @@
 
 LoRaPlan é um sistema de planejamento de redes LoRaWAN capaz de gerar datasets com soluções otimizadas, permitindo aos administradores ajustar os parâmetros conforme suas necessidades e facilitando novas pesquisas na área. O sistema recebe parâmetros de configuração da rede, regiões a serem atendidas e densidade de usuários, gerando como saída a localização dos nós clientes e dos gateways necessários para cobertura total da área.
 
-O sistema pode ser acessado em: https://loraplan.vercel.app/
+O sistema foi submetido e apresentado no Salão de Ferramentas da SBRC 2024: https://sol.sbc.org.br/index.php/sbrc_estendido/article/view/29953
+Pode ser acessado e utilizado em: https://loraplan.vercel.app
 
 # Arquitetura
 
@@ -16,7 +17,8 @@ O sistema pode ser acessado em: https://loraplan.vercel.app/
 # Como executar
 
 ## Requisitos gerais
-- Sistema operacional Ubuntu 22 
+
+- Sistema operacional Ubuntu 22
 - Docker 25
 
 ## Backend
