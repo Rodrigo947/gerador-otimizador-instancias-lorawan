@@ -1,8 +1,0 @@
-[phases.setup]
-nixPkgs = ["gcc", "pipenv", "postgresql_16", "python39"]
-
-[phases.install]
-cmds = ["pipenv install --system --deploy"]
-
-[start]
-cmd = "python manage.py migrate && gunicorn core.wsgi"
