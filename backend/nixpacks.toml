@@ -1,2 +1,5 @@
 [phases.setup]
 nixPkgs = ["gcc", "pipenv", "postgresql_16", "python39"]
+
+[start]
+cmd = ". /opt/venv/bin/activate && python manage.py migrate && gunicorn core.wsgi"
