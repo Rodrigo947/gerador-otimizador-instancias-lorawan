@@ -1,1 +1,1 @@
-providers = ["gcc", "pipenv", "postgresql_16", "python39"]
+nixPkgs = ["gcc", "pipenv", "postgresql_16", "python39"]
