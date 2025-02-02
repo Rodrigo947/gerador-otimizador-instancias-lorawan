@@ -1,1 +1,2 @@
+[phases.setup]
 nixPkgs = ["gcc", "pipenv", "postgresql_16", "python39"]
