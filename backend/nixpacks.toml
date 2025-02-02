@@ -1,4 +1,4 @@
-providers = ["...", "python"]
+providers = ["python"]
 
 [phases.setup]
 nixPkgs = ["python39", "postgresql_16", "pipenv", "gcc"]
