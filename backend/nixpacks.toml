@@ -5,4 +5,4 @@ nixPkgs = ["gcc", "pipenv", "postgresql_16", "python39"]
 cmds = ["python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pipenv install --deploy"]
 
 [start]
-cmd = ". /opt/venv/bin/activate && python manage.py migrate && gunicorn core.wsgi"
+cmd = "export PYTHONPATH="/opt/venv/lib/python3.9/site-packages" && . /opt/venv/bin/activate && python manage.py migrate && gunicorn core.wsgi"
