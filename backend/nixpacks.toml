@@ -2,7 +2,7 @@
 nixPkgs = ["gcc", "pipenv", "postgresql_16", "python39"]
 
 [phases.build]
-cmds = [python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pipenv install --deploy]
+cmds = ["python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pipenv install --deploy"]
 
 [start]
 cmd = ". /opt/venv/bin/activate && python manage.py migrate && gunicorn core.wsgi"
