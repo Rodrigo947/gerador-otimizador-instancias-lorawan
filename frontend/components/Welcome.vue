@@ -1,5 +1,5 @@
 <template>
-	<v-dialog v-model="dialog" width="500">
+	<v-dialog v-model="dialog" width="500" persistent>
 		<v-card max-width="400">
 			<v-card-title> Bem-vindo </v-card-title>
 
